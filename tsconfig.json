@@ -9,11 +9,12 @@
 		"allowSyntheticDefaultImports": true,
 		"strict": true,
 		"forceConsistentCasingInFileNames": true,
-		"moduleResolution": "node",
+		"moduleResolution": "bundler", //  changed this line
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-		"jsx": "react-native"
+		"jsx": "react-native",
+		"customConditions": ["react-native"] // so i can now safely use this
 	},
 	"exclude": [
 		"node_modules",

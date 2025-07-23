@@ -34,7 +34,11 @@ export type Payload = any;
 
 export type State = BlogPost[];
 
-export type ActionType = "add_blogPost" | "edit_blogPost" | "delete_blogPost";
+export type ActionType =
+	| "add_blogPost"
+	| "edit_blogPost"
+	| "delete_blogPost"
+	| "get_blogPosts";
 
 export type Dispatch = (arg0: { type: ActionType; payload: Payload }) => void;
 

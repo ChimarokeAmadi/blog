@@ -1,10 +1,13 @@
 import { Action, Dispatch, State, BlogContextType } from "../types";
 import createDataContext from "./createDataContext";
+import jsonServer from "../api/jsonServer";
 
 // const BlogContext = React.createContext({});
 
 const blogReducer = (state: State, action: Action) => {
 	switch (action.type) {
+		case "get_blogPosts":
+			return action.payload;
 		case "add_blogPost":
 			return [
 				...state,
@@ -31,6 +34,13 @@ const blogReducer = (state: State, action: Action) => {
 		default:
 			return state;
 	}
+};
+
+const getBlogPosts = (dispatch: Dispatch) => {
+	return async () => {
+		const response = await jsonServer.get("/blogposts");
+		dispatch({ type: "get_blogPosts", payload: response.data });
+	};
 };
 
 const addBlogPost = (dispatch: Dispatch) => {
@@ -82,8 +92,11 @@ const editBlogPost = (dispatch: Dispatch) => {
 
 const { Context, Provider } = createDataContext<State, Action, BlogContextType>(
 	blogReducer,
-	{ addBlogPost, deleteBlogPost, editBlogPost },
+	{ addBlogPost, deleteBlogPost, editBlogPost, getBlogPosts },
 	[]
 );
 
 export { Context, Provider };
+function async() {
+	throw new Error("Function not implemented.");
+}

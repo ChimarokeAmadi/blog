@@ -39,6 +39,10 @@ const blogReducer = (state: State, action: Action) => {
 const getBlogPosts = (dispatch: Dispatch) => {
 	return async () => {
 		const response = await jsonServer.get("/blogPosts");
+		if (!response || !response.data) {
+			throw new Error("Failed to fetch blog posts");
+		}
+		console.log(response.data);
 		dispatch({ type: "get_blogPosts", payload: response.data });
 	};
 };

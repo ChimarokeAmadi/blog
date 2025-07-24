@@ -43,7 +43,10 @@ const IndexScreen = ({ navigation }: IndexScreenProps) => {
 				renderItem={({ item }) => {
 					return (
 						<TouchableOpacity
-							onPress={() => navigation.navigate("Blog", { id: item.id, item })}
+							onPress={() => {
+								navigation.navigate("Blog", { id: item.id, item });
+								console.log(item);
+							}}
 						>
 							<View style={styles.row}>
 								<Text style={styles.title}>

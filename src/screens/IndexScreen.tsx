@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect } from "react";
+import React, { useContext, useEffect, useLayoutEffect } from "react";
 import {
 	FlatList,
 	StyleSheet,
@@ -19,7 +19,11 @@ const IndexScreen = ({ navigation }: IndexScreenProps) => {
 		return null;
 	}
 
-	const { state, deleteBlogPost } = IndexContext;
+	const { state, deleteBlogPost, getBlogPosts } = IndexContext;
+
+	useEffect(() => {
+		getBlogPosts();
+	}, []);
 
 	// useLayoutEffect(() => {
 	// 	navigation.setOptions({

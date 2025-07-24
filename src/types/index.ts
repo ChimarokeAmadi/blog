@@ -20,6 +20,7 @@ export type BlogReducer = (
 
 export type BlogContextType = {
 	state: State;
+	getBlogPosts: () => void;
 	addBlogPost: (title: string, content: string, callback: () => void) => void;
 	deleteBlogPost: (id: number) => void;
 	editBlogPost: (

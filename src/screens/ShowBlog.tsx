@@ -6,17 +6,18 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteProp } from "@react-navigation/native";
 import { RootStackParamsList } from "../types";
+import { useBlogContext } from "../context/BlogPostContext";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamsList, "Blog">;
 type RouteParams = RouteProp<RootStackParamsList, "Blog">;
 const ShowBlog = () => {
-	const showBlogContext = useContext(Context);
+	const showBlogContext = useBlogContext();
 
 	if (!showBlogContext) {
-		return null;
+		return <Text>null</Text>;
 	}
 
-	const { state } = showBlogContext;
+	const { blogPosts } = showBlogContext;
 	const route = useRoute<RouteParams>();
 	const navigation = useNavigation<NavigationProp>();
 	const { id } = route.params;
@@ -33,7 +34,7 @@ const ShowBlog = () => {
 		});
 	}, [navigation]);
 
-	const blogPost = state.find((blogPost) => blogPost.id === id);
+	const blogPost = blogPosts.find((blogPost) => blogPost.id === id);
 
 	return (
 		<View>

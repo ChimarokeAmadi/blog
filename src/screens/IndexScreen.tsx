@@ -6,24 +6,33 @@ import {
 	View,
 	TouchableOpacity,
 } from "react-native";
-import { Context } from "../context/BlogContext";
+// import { Context } from "../context/BlogContext";
 import Feather from "@expo/vector-icons/Feather";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamsList } from "../types";
+import { useQuery } from "@tanstack/react-query";
+import { useBlogContext } from "../context/BlogPostContext";
 
 type IndexScreenProps = NativeStackScreenProps<RootStackParamsList, "Blogs">;
 
 const IndexScreen = ({ navigation }: IndexScreenProps) => {
-	const IndexContext = useContext(Context);
-	if (!IndexContext) {
-		return null;
-	}
+	// const IndexContext = useContext(Context);
+	// if (!IndexContext) {
+	// 	return null;
+	// }
 
-	const { state, deleteBlogPost, getBlogPosts } = IndexContext;
+	// const { state, deleteBlogPost, getBlogPosts } = IndexContext;
 
-	useEffect(() => {
-		getBlogPosts();
-	}, []);
+	// const x = useQuery({
+	// 	queryKey: ["blogPost"],
+	// 	queryFn: getBlogPosts,
+	// });
+
+	// console.log(x);
+
+	// useEffect(() => {
+	// 	getBlogPosts();
+	// }, []);
 
 	// useLayoutEffect(() => {
 	// 	navigation.setOptions({
@@ -35,10 +44,12 @@ const IndexScreen = ({ navigation }: IndexScreenProps) => {
 	// 	});
 	// }, [navigation]);
 
+	const { blogPosts, isPending, error, refetchBlogPosts } = useBlogContext();
+
 	return (
 		<View>
 			<FlatList
-				data={state}
+				data={blogPosts}
 				keyExtractor={(blogPost) => blogPost.id.toString()}
 				renderItem={({ item }) => {
 					return (
@@ -52,9 +63,9 @@ const IndexScreen = ({ navigation }: IndexScreenProps) => {
 								<Text style={styles.title}>
 									{item.title} - {item.id}
 								</Text>
-								<TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+								{/* <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
 									<Feather name="trash" style={styles.icon} />
-								</TouchableOpacity>
+								</TouchableOpacity> */}
 							</View>
 						</TouchableOpacity>
 					);

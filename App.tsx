@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Feather, Ionicons } from "@expo/vector-icons";
-import { Provider } from "./src/context/BlogContext";
+// import { Provider } from "./src/context/BlogContext";
 import AppNavigator from "./src/components/AppNavigator";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BlogPostProvider } from "./src/context/BlogPostContext";
 SplashScreen.preventAutoHideAsync();
 
 const queryClient = new QueryClient({
@@ -31,9 +32,9 @@ export default function App() {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<Provider>
+			<BlogPostProvider>
 				<AppNavigator />
-			</Provider>
+			</BlogPostProvider>
 		</QueryClientProvider>
 	);
 }

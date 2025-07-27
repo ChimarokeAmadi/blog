@@ -15,9 +15,9 @@ const BlogPostContext = createContext<BlogPostContextType | undefined>(
 );
 
 export const BlogPostProvider = ({
-	Children,
+	children,
 }: {
-	Children: React.ReactNode;
+	children: React.ReactNode;
 }) => {
 	const queryContext = useQueryClient();
 	const {
@@ -39,7 +39,7 @@ export const BlogPostProvider = ({
 
 	return (
 		<BlogPostContext.Provider value={value}>
-			{Children}
+			{children}
 		</BlogPostContext.Provider>
 	);
 };

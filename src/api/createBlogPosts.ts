@@ -10,7 +10,7 @@ export const CreateBlogPosts = async ({
 	title: string;
 	content: string;
 }) => {
-	const id = Math.floor(Math.random() * 99999);
+	const id = Math.floor(Math.random() * 99999).toString();
 
 	const response = await jsonServer.post("/blogPosts", { title, content, id });
 

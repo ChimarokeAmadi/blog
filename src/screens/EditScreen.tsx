@@ -27,14 +27,18 @@ const EditScreen = ({ navigation, route }: EditScreenProps) => {
 	// 	});
 	// };
 
-	const saveEdit = () => {
+	const saveEdit = (title: string, content: string) => {
 		editPost({
-			newTitle: blogPost?.title,
-			newContent: blogPost?.content,
-			id: blogPost?.id,
+			newTitle: title,
+			newContent: content,
+			id: id.toString(),
 		});
-		console.log();
-
+		console.log(
+			"New BlogPost",
+			blogPost?.id,
+			blogPost?.content,
+			blogPost?.title
+		);
 		navigation.pop();
 	};
 

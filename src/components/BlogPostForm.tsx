@@ -10,6 +10,7 @@ const BlogPostForm = ({
 	buttonTitle,
 	initialTitle = "",
 	initialContent = "",
+	disabled = false,
 	onSubmit,
 }: BlogFormProps) => {
 	const [title, setTitle] = useState(initialTitle);
@@ -24,7 +25,11 @@ const BlogPostForm = ({
 				value={content}
 				onChangeText={setContent}
 			/>
-			<Button title={buttonTitle} onPress={() => onSubmit(title, content)} />
+			<Button
+				title={buttonTitle}
+				onPress={() => onSubmit(title, content)}
+				disabled={disabled}
+			/>
 		</View>
 	);
 };

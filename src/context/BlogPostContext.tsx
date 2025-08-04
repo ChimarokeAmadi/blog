@@ -19,7 +19,7 @@ interface BlogPostContextType {
 	}: {
 		newTitle: string | undefined;
 		newContent: string | undefined;
-		id: number | undefined;
+		id: string | undefined;
 	}) => void;
 	isEditing: boolean;
 }
@@ -43,6 +43,7 @@ export const BlogPostProvider = ({
 	} = useQuery({
 		queryKey: ["blogPosts"],
 		queryFn: fetchBlogPosts,
+		refetchInterval: 5 * 1000,
 	});
 
 	const { mutate: createPost, isPending: isCreating } = useMutation({

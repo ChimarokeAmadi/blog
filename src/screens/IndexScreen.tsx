@@ -6,7 +6,6 @@ import {
 	View,
 	TouchableOpacity,
 } from "react-native";
-// import { Context } from "../context/BlogContext";
 import Feather from "@expo/vector-icons/Feather";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamsList } from "../types";
@@ -60,16 +59,6 @@ const IndexScreen = ({ navigation }: IndexScreenProps) => {
 		</View>
 	);
 };
-
-// IndexScreen.navigationOptions = () => {
-// 	return {
-// 		headerRight: () => (
-// 			<TouchableOpacity onPress={() => navigation.navigate("Create")}>
-// 				<Feather name="plus" size={30} />
-// 			</TouchableOpacity>
-// 		),
-// 	};
-// };
 
 const styles = StyleSheet.create({
 	row: {

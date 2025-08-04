@@ -33,6 +33,8 @@ const EditScreen = ({ navigation, route }: EditScreenProps) => {
 			newContent: blogPost?.content,
 			id: blogPost?.id,
 		});
+		console.log();
+
 		navigation.pop();
 	};
 

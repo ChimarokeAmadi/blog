@@ -7,7 +7,7 @@ interface editBlogProps {
 	id: string | undefined;
 }
 
-export const editBlogPosts = async ({
+export const editBlogPost = async ({
 	newTitle,
 	newContent,
 	id,

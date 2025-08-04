@@ -5,22 +5,22 @@ import { Context } from "../context/BlogContext";
 import BlogPostForm from "../components/BlogPostForm";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamsList } from "../types";
+import { useBlogContext } from "../context/BlogPostContext";
 
 type CreateScreenProps = NativeStackScreenProps<RootStackParamsList, "Create">;
 
 const CreateScreen = ({ navigation }: CreateScreenProps) => {
-	const createContext = useContext(Context);
+	const createContext = useBlogContext();
 
 	if (!createContext) {
 		return null;
 	}
 
-	const { addBlogPost } = createContext;
+	const { createPost, isCreating } = createContext;
 
 	const addPost = (title: string, content: string) => {
-		addBlogPost(title, content, () => {
-			return navigation.navigate("Blogs");
-		});
+		createPost({ title, content });
+		navigation.pop();
 	};
 
 	return <BlogPostForm onSubmit={addPost} buttonTitle="Add Post" />;

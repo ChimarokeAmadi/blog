@@ -2,8 +2,9 @@ import { useContext, createContext, Children } from "react";
 import { fetchBlogPosts } from "../api/fetchBlogPosts";
 import { BlogPost, State } from "../types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { CreateBlogPosts } from "../api/createBlogPosts";
-import { editBlogPosts } from "../api/editBlogPosts";
+import { CreateBlogPost } from "../api/createBlogPost";
+import { editBlogPost } from "../api/editBlogPost";
+import { deleteBlogPost } from "../api/deleteBlogPost";
 
 interface BlogPostContextType {
 	blogPosts: State;
@@ -22,6 +23,8 @@ interface BlogPostContextType {
 		id: string | undefined;
 	}) => void;
 	isEditing: boolean;
+	deletePost: (id: number) => void;
+	isDeleting: boolean;
 }
 
 const BlogPostContext = createContext<BlogPostContextType | undefined>(
@@ -43,11 +46,11 @@ export const BlogPostProvider = ({
 	} = useQuery({
 		queryKey: ["blogPosts"],
 		queryFn: fetchBlogPosts,
-		refetchInterval: 5 * 1000,
+		// refetchInterval: 5 * 1000,
 	});
 
 	const { mutate: createPost, isPending: isCreating } = useMutation({
-		mutationFn: CreateBlogPosts,
+		mutationFn: CreateBlogPost,
 		onSuccess: () => {
 			queryContext.invalidateQueries({
 				queryKey: ["blogPosts"],
@@ -56,7 +59,16 @@ export const BlogPostProvider = ({
 	});
 
 	const { mutate: editPost, isPending: isEditing } = useMutation({
-		mutationFn: editBlogPosts,
+		mutationFn: editBlogPost,
+		onSuccess: () => {
+			queryContext.invalidateQueries({
+				queryKey: ["blogPosts"],
+			});
+		},
+	});
+
+	const { mutate: deletePost, isPending: isDeleting } = useMutation({
+		mutationFn: deleteBlogPost,
 		onSuccess: () => {
 			queryContext.invalidateQueries({
 				queryKey: ["blogPosts"],
@@ -73,6 +85,8 @@ export const BlogPostProvider = ({
 		isCreating,
 		editPost,
 		isEditing,
+		deletePost,
+		isDeleting,
 	};
 
 	return (

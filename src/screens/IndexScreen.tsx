@@ -16,35 +16,15 @@ import { useBlogContext } from "../context/BlogPostContext";
 type IndexScreenProps = NativeStackScreenProps<RootStackParamsList, "Blogs">;
 
 const IndexScreen = ({ navigation }: IndexScreenProps) => {
-	// const IndexContext = useContext(Context);
-	// if (!IndexContext) {
-	// 	return null;
-	// }
-
-	// const { state, deleteBlogPost, getBlogPosts } = IndexContext;
-
-	// const x = useQuery({
-	// 	queryKey: ["blogPost"],
-	// 	queryFn: getBlogPosts,
-	// });
-
-	// console.log(x);
-
-	// useEffect(() => {
-	// 	getBlogPosts();
-	// }, []);
-
-	// useLayoutEffect(() => {
-	// 	navigation.setOptions({
-	// 		headerRight: () => (
-	// 			<TouchableOpacity onPress={() => navigation.navigate("Create")}>
-	// 				<Feather name="plus" size={24} />
-	// 			</TouchableOpacity>
-	// 		),
-	// 	});
-	// }, [navigation]);
-
-	const { blogPosts, isPending, error, refetchBlogPosts } = useBlogContext();
+	const { blogPosts, isPending, error, refetchBlogPosts, deletePost } =
+		useBlogContext();
+	useEffect(() => {
+		refetchBlogPosts();
+		const listener = navigation.addListener("focus", () => {
+			refetchBlogPosts();
+		});
+		return listener;
+	}, []);
 
 	return (
 		<View>
@@ -64,19 +44,19 @@ const IndexScreen = ({ navigation }: IndexScreenProps) => {
 								<Text style={styles.title}>
 									{item.title} - {item.id}
 								</Text>
-								{/* <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+								<TouchableOpacity onPress={() => deletePost(item.id)}>
 									<Feather name="trash" style={styles.icon} />
-								</TouchableOpacity> */}
+								</TouchableOpacity>
 							</View>
 						</TouchableOpacity>
 					);
 				}}
 			/>
-			{/* {error && (
+			{error instanceof Error && (
 				<Text style={{ color: "red", textAlign: "center" }}>
 					{(error as Error).message}
 				</Text>
-			)} */}
+			)}
 		</View>
 	);
 };

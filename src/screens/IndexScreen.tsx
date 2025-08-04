@@ -48,6 +48,7 @@ const IndexScreen = ({ navigation }: IndexScreenProps) => {
 
 	return (
 		<View>
+			{isPending && <Text>Loading...</Text>}
 			<FlatList
 				data={blogPosts}
 				keyExtractor={(blogPost) => blogPost.id.toString()}
@@ -71,6 +72,11 @@ const IndexScreen = ({ navigation }: IndexScreenProps) => {
 					);
 				}}
 			/>
+			{/* {error && (
+				<Text style={{ color: "red", textAlign: "center" }}>
+					{(error as Error).message}
+				</Text>
+			)} */}
 		</View>
 	);
 };

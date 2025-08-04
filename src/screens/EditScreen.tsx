@@ -5,25 +5,35 @@ import { useRoute } from "@react-navigation/native";
 import BlogPostForm from "../components/BlogPostForm";
 import { BlogPost, Dispatch, RootStackParamsList } from "../types";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useBlogContext } from "../context/BlogPostContext";
 
 type EditScreenProps = NativeStackScreenProps<RootStackParamsList, "Edit">;
 
 const EditScreen = ({ navigation, route }: EditScreenProps) => {
 	const { id } = route.params;
-	const blogContext = useContext(Context);
+	const blogContext = useBlogContext();
 	if (!blogContext) {
 		return null;
 	}
-	const { state, editBlogPost } = blogContext;
-	const blogPost = state.find((blog: BlogPost) => blog.id === id);
+	const { blogPosts, editPost, isEditing } = blogContext;
+	const blogPost = blogPosts.find((blog: BlogPost) => blog.id === id);
 
 	// const [newTitle, setNewTitle] = useState(blogPost?.title || "");
 	// const [newContent, setNewContent] = useState(blogPost?.content || "");
 
-	const saveEdit = (title: string, content: string) => {
-		editBlogPost(id, title, content, () => {
-			return navigation.pop();
+	// const saveEdit = (title: string, content: string) => {
+	// 	editBlogPost(id, title, content, () => {
+	// 		return navigation.pop();
+	// 	});
+	// };
+
+	const saveEdit = () => {
+		editPost({
+			newTitle: blogPost?.title,
+			newContent: blogPost?.content,
+			id: blogPost?.id,
 		});
+		navigation.pop();
 	};
 
 	return (
@@ -36,19 +46,9 @@ const EditScreen = ({ navigation, route }: EditScreenProps) => {
 			initialContent={blogPost?.content}
 			buttonTitle="Save Edit"
 			onSubmit={saveEdit}
+			disabled={isEditing}
 		/>
 	);
 };
 
-const styles = StyleSheet.create({
-	textStyles: {
-		marginLeft: 5,
-		fontSize: 18,
-	},
-	inputStyles: {
-		margin: 5,
-		padding: 5,
-		borderWidth: 2,
-	},
-});
 export default EditScreen;

@@ -4,7 +4,7 @@ import jsonServer from "./jsonServer";
 interface editBlogProps {
 	newTitle: string | undefined;
 	newContent: string | undefined;
-	id: number | undefined;
+	id: string | undefined;
 }
 
 export const editBlogPosts = async ({
@@ -16,7 +16,7 @@ export const editBlogPosts = async ({
 	console.log(typeof id);
 
 	try {
-		const response = await jsonServer.patch(`/blogPosts/:${id}`, {
+		const response = await jsonServer.put(`/blogPosts/${id}`, {
 			title: newTitle,
 			content: newContent,
 		});

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "./global.css";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Feather, Ionicons } from "@expo/vector-icons";

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, Button } from "react-native";
+import {
+	View,
+	Text,
+	TextInput,
+	StyleSheet,
+	Button,
+	Pressable,
+} from "react-native";
 import { BlogFormProps } from "../types/blogPost";
 
 const BlogPostForm = ({
-	// title,
-	// content,
-	// setTitle,
-	// setContent,
 	buttonTitle,
 	initialTitle = "",
 	initialContent = "",
@@ -17,32 +20,27 @@ const BlogPostForm = ({
 	const [content, setContent] = useState(initialContent);
 	return (
 		<View>
-			<Text style={styles.label}>Enter Title</Text>
-			<TextInput style={styles.input} value={title} onChangeText={setTitle} />
-			<Text style={styles.label}>Enter Content</Text>
+			<Text className="text-[20px] ml-[15px]">Enter Title</Text>
 			<TextInput
-				style={styles.input}
+				className="border-black border-2 p-[5px] m-[15px]"
+				value={title}
+				onChangeText={setTitle}
+			/>
+			<Text className="text-[20px] ml-[15px]">Enter Content</Text>
+			<TextInput
+				className="border-black border-2 p-[5px] m-[15px]"
 				value={content}
 				onChangeText={setContent}
 			/>
-			<Button
-				title={buttonTitle}
+			<Pressable
 				onPress={() => onSubmit(title, content)}
 				disabled={disabled}
-			/>
+				className=""
+			>
+				<Text className="text-blue-600 text-center">{buttonTitle}</Text>
+			</Pressable>
 		</View>
 	);
 };
 
-const styles = StyleSheet.create({
-	input: {
-		borderWidth: 2,
-		padding: 5,
-		margin: 15,
-	},
-	label: {
-		fontSize: 20,
-		marginLeft: 15,
-	},
-});
 export default BlogPostForm;

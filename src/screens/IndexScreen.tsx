@@ -9,7 +9,6 @@ import {
 import Feather from "@expo/vector-icons/Feather";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamsList } from "../types";
-import { useQuery } from "@tanstack/react-query";
 import { useBlogContext } from "../context/BlogPostContext";
 
 type IndexScreenProps = NativeStackScreenProps<RootStackParamsList, "Blogs">;
@@ -43,7 +42,12 @@ const IndexScreen = ({ navigation }: IndexScreenProps) => {
 								<Text style={styles.title}>
 									{item.title} - {item.id}
 								</Text>
-								<TouchableOpacity onPress={() => deletePost(item.id)}>
+								<TouchableOpacity
+									onPress={() => {
+										blogPosts.pop();
+										deletePost(item.id);
+									}}
+								>
 									<Feather name="trash" style={styles.icon} />
 								</TouchableOpacity>
 							</View>

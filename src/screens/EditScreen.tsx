@@ -44,10 +44,6 @@ const EditScreen = ({ navigation, route }: EditScreenProps) => {
 
 	return (
 		<BlogPostForm
-			// title={newTitle}
-			// content={newContent}
-			// setTitle={setNewTitle}
-			// setContent={setNewContent}
 			initialTitle={blogPost?.title}
 			initialContent={blogPost?.content}
 			buttonTitle="Save Edit"
